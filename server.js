@@ -8,26 +8,23 @@ const io = new Server(server);
 
 app.use(express.static('public'));
 
-const rooms = {};
+const users = {};
 
 io.on('connection', (socket) => {
-  socket.on('join', ({ room, username }) => {
-    socket.join(room);
-    socket.data.room = room;
+  socket.on('join', (username) => {
     socket.data.username = username;
+    users[socket.id] = username;
 
-    if (!rooms[room]) rooms[room] = [];
-    rooms[room].push(username);
-
-    io.to(room).emit('user-joined', {
+    io.emit('user-joined', {
       username,
-      users: rooms[room],
+      users: Object.values(users),
     });
   });
 
-  socket.on('message', ({ room, text }) => {
+  socket.on('message', (text) => {
     const username = socket.data.username;
-    io.to(room).emit('message', {
+    if (!username) return;
+    io.emit('message', {
       username,
       text,
       time: new Date().toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' }),
@@ -35,18 +32,13 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
-    const { room, username } = socket.data;
-    if (room && rooms[room]) {
-      rooms[room] = rooms[room].filter((u) => u !== username);
-      if (rooms[room].length === 0) {
-        delete rooms[room];
-      } else {
-        io.to(room).emit('user-left', {
-          username,
-          users: rooms[room],
-        });
-      }
-    }
+    const username = users[socket.id];
+    if (!username) return;
+    delete users[socket.id];
+    io.emit('user-left', {
+      username,
+      users: Object.values(users),
+    });
   });
 });
 

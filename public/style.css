@@ -18,7 +18,7 @@ body {
   border-radius: 16px;
   padding: 48px 40px;
   width: 100%;
-  max-width: 400px;
+  max-width: 380px;
   box-shadow: 0 8px 32px rgba(0,0,0,.12);
   display: flex;
   flex-direction: column;
@@ -52,17 +52,6 @@ body {
 
 .error { color: #e53e3e; font-size: .85rem; text-align: center; min-height: 1em; }
 
-.invited-notice {
-  background: #ebf8ff;
-  border: 2px solid #90cdf4;
-  border-radius: 8px;
-  padding: 12px 16px;
-  text-align: center;
-  color: #2b6cb0;
-  font-weight: 600;
-  font-size: .95rem;
-}
-
 /* ── チャット ── */
 #chat-screen { align-items: stretch; }
 
@@ -73,7 +62,7 @@ body {
 }
 
 .sidebar {
-  width: 200px;
+  width: 180px;
   background: #1e293b;
   color: #e2e8f0;
   display: flex;
@@ -82,11 +71,10 @@ body {
   flex-shrink: 0;
 }
 
-.room-name {
-  font-size: 1.1rem;
+.app-title {
+  font-size: 1rem;
   font-weight: 700;
-  margin-bottom: 24px;
-  word-break: break-all;
+  margin-bottom: 28px;
   color: #fff;
 }
 
@@ -106,33 +94,6 @@ body {
   gap: 6px;
 }
 #user-list li::before { content: '●'; color: #4ade80; font-size: .6rem; }
-
-.share-section {
-  margin-top: auto;
-  padding-top: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.share-section button {
-  background: #334155;
-  color: #e2e8f0;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 12px;
-  font-size: .82rem;
-  cursor: pointer;
-  transition: background .2s;
-  text-align: left;
-}
-.share-section button:hover { background: #475569; }
-
-.copy-msg {
-  font-size: .78rem;
-  color: #4ade80;
-  min-height: 1.2em;
-}
 
 .chat-main {
   flex: 1;
@@ -211,7 +172,7 @@ body {
 #message-form button:hover { background: #3a84e8; }
 
 @media (max-width: 600px) {
-  .sidebar { width: 140px; padding: 16px 10px; }
+  .sidebar { width: 130px; padding: 16px 10px; }
   #messages { padding: 16px; }
   #message-form { padding: 12px 16px; }
   .msg { max-width: 85%; }
