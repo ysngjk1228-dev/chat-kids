@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chat Kids</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- 入室画面 -->
+  <div id="login-screen" class="screen">
+    <div class="login-box">
+      <h1>💬 Chat Kids</h1>
+      <p class="subtitle">離れた人とリアルタイムでチャットしよう</p>
+      <input id="username-input" type="text" placeholder="あなたの名前" maxlength="20" />
+      <input id="room-input" type="text" placeholder="ルーム名（友達と同じ名前を入力）" maxlength="30" />
+      <button id="join-btn">入室する</button>
+      <p id="login-error" class="error"></p>
+    </div>
+  </div>
+
+  <!-- チャット画面 -->
+  <div id="chat-screen" class="screen hidden">
+    <div class="chat-layout">
+      <aside class="sidebar">
+        <div class="room-name" id="room-label"></div>
+        <div class="users-title">参加中</div>
+        <ul id="user-list"></ul>
+      </aside>
+      <main class="chat-main">
+        <div id="messages"></div>
+        <form id="message-form">
+          <input id="message-input" type="text" placeholder="メッセージを入力..." autocomplete="off" maxlength="500" />
+          <button type="submit">送信</button>
+        </form>
+      </main>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
