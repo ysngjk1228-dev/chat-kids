@@ -12,10 +12,21 @@
   <div id="login-screen" class="screen">
     <div class="login-box">
       <h1>💬 Chat Kids</h1>
-      <p class="subtitle">離れた人とリアルタイムでチャットしよう</p>
-      <input id="username-input" type="text" placeholder="あなたの名前" maxlength="20" />
-      <input id="room-input" type="text" placeholder="ルーム名（友達と同じ名前を入力）" maxlength="30" />
-      <button id="join-btn">入室する</button>
+      <p id="subtitle" class="subtitle">離れた人とリアルタイムでチャットしよう</p>
+
+      <!-- 招待リンクから来た場合はここに部屋名を表示 -->
+      <div id="invited-notice" class="invited-notice hidden">
+        <span id="invited-room-name"></span> に招待されています
+      </div>
+
+      <input id="username-input" type="text" placeholder="あなたの名前を入力してね" maxlength="20" />
+
+      <!-- 招待リンクがない場合のみ表示 -->
+      <div id="room-field">
+        <input id="room-input" type="text" placeholder="ルーム名（相手と同じ名前にする）" maxlength="30" />
+      </div>
+
+      <button id="join-btn">はいる！</button>
       <p id="login-error" class="error"></p>
     </div>
   </div>
@@ -27,6 +38,10 @@
         <div class="room-name" id="room-label"></div>
         <div class="users-title">参加中</div>
         <ul id="user-list"></ul>
+        <div class="share-section">
+          <button id="copy-link-btn">🔗 招待リンクをコピー</button>
+          <p id="copy-msg" class="copy-msg"></p>
+        </div>
       </aside>
       <main class="chat-main">
         <div id="messages"></div>
