@@ -8,10 +8,22 @@ const io = new Server(server);
 
 app.use(express.static('public'));
 
+const CHAT_PASSWORD = process.env.CHAT_PASSWORD || 'changeme';
+
 const users = {};
 
 io.on('connection', (socket) => {
-  socket.on('join', (username) => {
+  socket.on('join', ({ username, password }) => {
+    if (password !== CHAT_PASSWORD) {
+      socket.emit('join-error', 'パスワードが違います');
+      return;
+    }
+    const takenNames = Object.values(users);
+    if (takenNames.includes(username)) {
+      socket.emit('join-error', 'その名前はすでに使われています');
+      return;
+    }
+
     socket.data.username = username;
     users[socket.id] = username;
 
@@ -45,4 +57,7 @@ io.on('connection', (socket) => {
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
+  if (CHAT_PASSWORD === 'changeme') {
+    console.warn('⚠️  CHAT_PASSWORD is not set. Please set the CHAT_PASSWORD environment variable.');
+  }
 });

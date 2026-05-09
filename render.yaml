@@ -10,3 +10,5 @@ services:
         value: 10000
       - key: NODE_ENV
         value: production
+      - key: CHAT_PASSWORD
+        sync: false  # Render ダッシュボードで手動設定してください
