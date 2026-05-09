@@ -14,13 +14,20 @@ const CHAT_PASSWORD = process.env.CHAT_PASSWORD || 'changeme';
 const users = {};
 
 io.on('connection', (socket) => {
-  socket.on('join', ({ username, password }) => {
+  socket.on('join', ({ username, password } = {}) => {
+    // 二重入室を防ぐ
+    if (socket.data.username) return;
+
+    if (typeof username !== 'string' || typeof password !== 'string') return;
+
+    username = username.trim();
+    if (!username || username.length > 20) return;
+
     if (password !== CHAT_PASSWORD) {
       socket.emit('join-error', 'パスワードが違います');
       return;
     }
-    const takenNames = Object.values(users);
-    if (takenNames.includes(username)) {
+    if (Object.values(users).includes(username)) {
       socket.emit('join-error', 'その名前はすでに使われています');
       return;
     }
@@ -37,6 +44,11 @@ io.on('connection', (socket) => {
   socket.on('message', (text) => {
     const username = socket.data.username;
     if (!username) return;
+
+    if (typeof text !== 'string') return;
+    text = text.trim();
+    if (!text || text.length > 500) return;
+
     io.emit('message', {
       username,
       text,

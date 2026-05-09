@@ -10,6 +10,7 @@ const userList = document.getElementById('user-list');
 const messages = document.getElementById('messages');
 const messageForm = document.getElementById('message-form');
 const messageInput = document.getElementById('message-input');
+const disconnectedBanner = document.getElementById('disconnected-banner');
 
 let myUsername = '';
 
@@ -29,6 +30,7 @@ function join() {
 }
 
 socket.on('join-error', (msg) => {
+  myUsername = '';
   loginError.textContent = msg;
   joinBtn.disabled = false;
   passwordInput.value = '';
@@ -49,6 +51,14 @@ socket.on('user-joined', ({ username, users }) => {
 socket.on('user-left', ({ username, users }) => {
   updateUserList(users);
   addSystem(`${username} が退出しました`);
+});
+
+// チャット中に切断されたら再読み込みを促す
+socket.on('disconnect', () => {
+  if (!myUsername) return;
+  disconnectedBanner.classList.remove('hidden');
+  messageInput.disabled = true;
+  messageForm.querySelector('button').disabled = true;
 });
 
 messageForm.addEventListener('submit', (e) => {

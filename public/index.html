@@ -22,6 +22,11 @@
 
   <!-- チャット画面 -->
   <div id="chat-screen" class="screen hidden">
+    <!-- 切断バナー -->
+    <div id="disconnected-banner" class="disconnected-banner hidden">
+      接続が切れました。ページを再読み込みしてください。
+      <button onclick="location.reload()">再読み込み</button>
+    </div>
     <div class="chat-layout">
       <aside class="sidebar">
         <div class="app-title">💬 Chat Kids</div>

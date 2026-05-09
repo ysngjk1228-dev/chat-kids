@@ -53,7 +53,30 @@ body {
 .error { color: #e53e3e; font-size: .85rem; text-align: center; min-height: 1em; }
 
 /* ── チャット ── */
-#chat-screen { align-items: stretch; }
+#chat-screen { align-items: stretch; flex-direction: column; }
+
+.disconnected-banner {
+  background: #e53e3e;
+  color: #fff;
+  text-align: center;
+  padding: 10px 16px;
+  font-size: .9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.disconnected-banner button {
+  background: #fff;
+  color: #e53e3e;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 12px;
+  font-size: .85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
 
 .chat-layout {
   display: flex;
